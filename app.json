@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "app-biblia",
+    "slug": "app-biblia",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
