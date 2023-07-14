@@ -8,6 +8,15 @@ declare module "styled-components" {
       textColor: string;
       secondaryText: string;
       buttonText: string;
+      headerHome: string;
+      borderHeaderHome: string;
+      textHeader: string;
+      borderDarkMode: string;
+      backgroundTestament: string;
+      flag: string;
+      borderButtons: string;
+      textNewTestament: string;
+      textOldTestament: string;
     };
     fonts: {
       regular: string;

@@ -9,7 +9,7 @@ export interface IGetChapter {
     chapter: {
       number: number;
       verses: number;
-    },
+    };
     verses: [
       {
         number: number;
@@ -19,8 +19,17 @@ export interface IGetChapter {
   };
 }
 
-export const useFetchData = () => {
-  const [data, setData] = useState<IGetChapter>({} as IGetChapter);
+export interface IGetBooks {
+  data: [
+    {
+      name: string;
+      //testament: string;
+    }
+  ];
+}
+
+export const useFetchData = <P = any,>() => {
+  const [data, setData] = useState<P>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -28,8 +37,8 @@ export const useFetchData = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response: IGetChapter = await api.get(url);
-      setData(response);
+      const response = await api.get<P>(url);
+      setData(response.data);
     } catch (e) {
       setError(e);
     } finally {

@@ -11,14 +11,14 @@ export const Title = styled.Text`
   text-align: center;
   color: ${({ theme }) => theme.colors.textColor};
   margin-bottom: 16px;
-  font-family: ${({ theme }) => theme.fonts.regular};
+  font-family: ${({ theme }) => theme.fonts.regularSerif};
 `;
 
 export const SubTitle = styled.Text`
   font-size: 14px;
   text-align: center;
   color: ${({ theme }) => theme.colors.textColor};
-  font-family: ${({ theme }) => theme.fonts.regular};
+  font-family: ${({ theme }) => theme.fonts.regularSerif};
   margin-bottom: 16px;
 `;
 
@@ -36,7 +36,7 @@ export const ButtonChangeChapter = styled.TouchableOpacity`
 export const TextButton = styled.Text`
   font-size: 16px;
   color: ${({ theme }) => theme.colors.textColor};
-  font-family: ${({ theme }) => theme.fonts.regular};
+  font-family: ${({ theme }) => theme.fonts.regularSerif};
 `;
 
 export const IconButton = styled(AntDesign)`

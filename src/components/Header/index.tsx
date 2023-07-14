@@ -14,14 +14,22 @@ import { View } from "react-native";
 import { ThemeContext } from "../../theme/Theme";
 import { FontSizeContext } from "../../context/FontSize";
 import { BottomSheetContext } from "../../context/BottomSheet";
+import { useNavigation } from "@react-navigation/native";
+
 export const Header = () => {
   const { toggleTheme } = useContext(ThemeContext);
   const { increaseFontSize } = useContext(FontSizeContext);
   const { handlePresentModal } = useContext(BottomSheetContext);
 
+  const navigation: any = useNavigation();
+
   return (
     <Container>
-      <ButtonBack>
+      <ButtonBack
+        onPress={() => {
+          navigation.navigate("Home");
+        }}
+      >
         <IconBack name="arrow-back-outline" />
         <TextButton>Voltar</TextButton>
       </ButtonBack>

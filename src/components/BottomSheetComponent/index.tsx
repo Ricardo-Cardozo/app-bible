@@ -13,10 +13,11 @@ import {
 import { ThemeContext, ThemeType } from "../../theme/Theme";
 import Loader from "../Loader";
 import { ChangeChapterContext } from "../../context/ChangeChapter";
+import { LinearGradient } from "expo-linear-gradient";
 
 export const BottomSheetComponent = () => {
   const { bottomSheetModalRef, snapPoints } = useContext(BottomSheetContext);
-  const { chapterNumber, handleGetChapter, data, isLoading, error } = useContext(ChangeChapterContext);
+  const { chapterNumber, handleGetChapter, data, isLoading, error } = useContext<any>(ChangeChapterContext);
 
   const { theme } = useContext(ThemeContext);
 
@@ -28,9 +29,19 @@ export const BottomSheetComponent = () => {
     return <Text>Something went wrong: {error.message}</Text>;
   }
 
-  if (!data.data) {
+  if (!data) {
     return <Text>No data</Text>;
   }
+
+  const fadeStartColor =
+    theme === ThemeType.light
+      ? "rgba(94, 94, 94, 0)"
+      : "rgba(251, 251, 251, 0)";
+  const fadeEndColor =
+    theme === ThemeType.light
+      ? "rgba(251, 251, 251, 1)"
+      : "rgba(94, 94, 94, 1)";
+
 
   return (
     <BottomSheetModal
@@ -46,8 +57,8 @@ export const BottomSheetComponent = () => {
         <Title>Trocar capítulo</Title>
         <SubTitle>Selecione abaixo o capítulo que você deseja ler</SubTitle>
         <BottomSheetFlatList
-          data={data.data.verses}
-          keyExtractor={(item) => item.number.toString()}
+          data={data.verses as any}
+          keyExtractor={(item: any) => item.number.toString()}
           renderItem={({ item }) => (
             <ButtonChangeChapter onPress={() => handleGetChapter(item.number)}>
               <TextButton>Capítulo {item.number}</TextButton>
@@ -55,6 +66,16 @@ export const BottomSheetComponent = () => {
             </ButtonChangeChapter>
           )}
         />
+        <LinearGradient
+            colors={[fadeStartColor, fadeEndColor]}
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: 80,
+            }}
+          />
       </Container>
     </BottomSheetModal>
   );

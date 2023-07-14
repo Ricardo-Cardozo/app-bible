@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { IGetChapter, useFetchData } from "../hooks/useFetchData";
+import { useGetAbbrev } from "../hooks/useGetAbbrev";
 
 const initialData: IGetChapter = {
   data: {
@@ -24,28 +25,45 @@ export const ChangeChapterContext = createContext({
   chapterNumber: 1,
   data: initialData,
   isLoading: null,
-  error: null
-})
+  error: null,
+  abbrev: "gn",
+  getAbbrev: (newAbbrev: string) => {},
+});
 
 export const ChangeChapterProvider = ({ children }) => {
   const [chapterNumber, setChapterNumber] = useState(1);
   const { getData, data, isLoading, error } = useFetchData();
+  const [abbrev, setAbbrev] = useState("gn");
+
+  console.log("Retorno 2 do abbrev: ", abbrev);
 
   useEffect(() => {
     async function readData() {
-      await getData(`verses/nvi/gn/${chapterNumber}`);
+      await getData(`verses/nvi/${abbrev}/${chapterNumber}`);
     }
     readData();
-  }, [chapterNumber]);
+  }, [chapterNumber, abbrev]);
 
   const handleGetChapter = (number) => {
     setChapterNumber(number);
     console.log("Atualizando número do capítulo para", number);
   };
 
+  const getAbbrev = (newAbbrev) => {
+    setAbbrev(newAbbrev);
+  };
+
   return (
     <ChangeChapterContext.Provider
-      value={{ chapterNumber, handleGetChapter, data, isLoading, error }}
+      value={{
+        chapterNumber,
+        handleGetChapter,
+        data,
+        isLoading,
+        error,
+        abbrev,
+        getAbbrev,
+      }}
     >
       {children}
     </ChangeChapterContext.Provider>
